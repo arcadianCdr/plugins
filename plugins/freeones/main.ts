@@ -162,9 +162,26 @@ const handler: Plugin<MyContext, ActorOutput> = async (ctx) => {
   }
   const $ = $cheerio.load(html || "");
 
+  // TODO: ignore single word alias on fuzzy actor search (also for ade)
+  // TODO: for single name actor searches, only accept a perfect match on the main name (not aliases) ?
+  // TODO: test Ellen Betsy
+  const foundName: string = $(".h1").text().trim().slice(0, -4);
+  // Actor name found on freeones (can be different from the searched one, especially when searched on an known alias)
+  function getName(): Partial<{ name: string }> {
+    if (isBlacklisted("name")) return {};
+    $logger.verbose("Getting actor name (as found by freeones)...");
+
+    if (actorName !== foundName) {
+      $logger.info(
+        `Found actor '${foundName}' while searching for '${actorName}'. If you don't want the found name to take precedence, you can blacklist the 'name' attribute via the plugin config arguments.`
+      );
+    }
+
+    return { name: foundName };
+  }
+
   if (args.fuzzyActorCheck) {
     // Attempts a fuzzy (levenshtein) match between searched and found actor (or aliases).
-    const foundName: string = $(".h1").text().trim().slice(0, -4);
     const found: string[] = getAlias().aliases || [];
     found.push(foundName);
     if (!isFuzzyMatch(found, actorName)) {
@@ -559,6 +576,7 @@ const handler: Plugin<MyContext, ActorOutput> = async (ctx) => {
   }
 
   const data: ActorOutput = {
+    ...getName(),
     ...getNationality(),
     ...getAge(),
     ...getAlias(),
