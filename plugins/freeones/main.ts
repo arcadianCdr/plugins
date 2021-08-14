@@ -164,7 +164,9 @@ const handler: Plugin<MyContext, ActorOutput> = async (ctx) => {
 
   // TODO: ignore single word alias on fuzzy actor search (also for ade)
   // TODO: for single name actor searches, only accept a perfect match on the main name (not aliases) ?
+  // TODO: for name substitution: only do it if the found name is not a single word
   // TODO: test Ellen Betsy
+  // TODO: test Ariana & Ariana Marie
   const foundName: string = $(".h1").text().trim().slice(0, -4);
   // Actor name found on freeones (can be different from the searched one, especially when searched on an known alias)
   function getName(): Partial<{ name: string }> {
