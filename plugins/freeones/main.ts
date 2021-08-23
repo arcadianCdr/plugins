@@ -167,8 +167,8 @@ const handler: Plugin<MyContext, ActorOutput> = async (ctx) => {
   // TODO: for name substitution: only do it if the found name is not a single word
   // TODO: test Ellen Betsy
   // TODO: test Ariana & Ariana Marie
+  // Actor name found on freeones (can be different from the searched one, especially when searching on an known alias)
   const foundName: string = $(".h1").text().trim().slice(0, -4);
-  // Actor name found on freeones (can be different from the searched one, especially when searched on an known alias)
   function getName(): Partial<{ name: string }> {
     if (isBlacklisted("name")) return {};
     $logger.verbose("Getting actor name (as found by freeones)...");
