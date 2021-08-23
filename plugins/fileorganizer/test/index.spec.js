@@ -1,18 +1,24 @@
+const fs = require("fs");
 const { createPluginRunner } = require("../../../context");
 const plugin = require("../main");
 const { expect } = require("chai");
-import fs from "fs";
 
 const runPlugin = createPluginRunner("fileorganizer", plugin);
 
+const tempPath = "./plugins/fileorganizer/test/fixtures/temp";
+
 describe("fileorganizer", () => {
   beforeEach(function () {
-    fs.rmdirSync("./plugins/fileorganizer/test/fixtures/temp", { recursive: true });
-    fs.mkdirSync("./plugins/fileorganizer/test/fixtures/temp");
+    if (fs.existsSync(tempPath)) {
+      fs.rmSync(tempPath, { recursive: true });
+    }
+    fs.mkdirSync(tempPath, { recursive: true });
   });
 
   afterEach(function () {
-    fs.rmdirSync("./plugins/fileorganizer/test/fixtures/temp", { recursive: true });
+    if (fs.existsSync(tempPath)) {
+      fs.rmSync(tempPath, { recursive: true });
+    }
   });
 
   it("Should fail", async () => {
@@ -164,10 +170,10 @@ describe("fileorganizer", () => {
       const result = await runPlugin({
         event: "sceneCreated",
         data: {
-          name: "Initial scene name"
+          name: "Initial scene name",
         },
         scene: {
-          meta: { dimensions: {width: 1920, height: 1080}, duration: 90}
+          meta: { dimensions: { width: 1920, height: 1080 }, duration: 90 },
         },
         sceneName: "Should be ignored",
         scenePath: "./plugins/fileorganizer/test/fixtures/temp/original.txt",
@@ -175,9 +181,13 @@ describe("fileorganizer", () => {
           fileStructureTemplate: "{<name!>}{ (<videoHeight!>p)}",
         },
       });
-      expect(result.path).to.equal("./plugins/fileorganizer/test/fixtures/temp/Initial scene name (1080p).txt");
+      expect(result.path).to.equal(
+        "./plugins/fileorganizer/test/fixtures/temp/Initial scene name (1080p).txt"
+      );
       expect(fs.existsSync("./plugins/fileorganizer/test/fixtures/temp/original.txt")).to.be.false;
-      expect(fs.existsSync("./plugins/fileorganizer/test/fixtures/temp/Initial scene name (1080p).txt")).to.be.true;
+      expect(
+        fs.existsSync("./plugins/fileorganizer/test/fixtures/temp/Initial scene name (1080p).txt")
+      ).to.be.true;
     });
     it("Should not rename with unsafe initial data on sceneCreate events...", async () => {
       fs.writeFileSync("./plugins/fileorganizer/test/fixtures/temp/original.txt", "");
@@ -185,7 +195,7 @@ describe("fileorganizer", () => {
         event: "sceneCreated",
         scene: {
           name: "Initial scene name",
-          meta: { dimensions: {width: 1920, height: 1080}, duration: 90}
+          meta: { dimensions: { width: 1920, height: 1080 }, duration: 90 },
         },
         sceneName: "Should be ignored",
         scenePath: "./plugins/fileorganizer/test/fixtures/temp/original.txt",
@@ -204,8 +214,7 @@ describe("fileorganizer", () => {
       const result = await runPlugin({
         event: "sceneCustom",
         scene: {
-          name:
-            'Dirty  scene? ...not the kind if "dirty" you\'re thinking about, Chloé! :+) / ? < >  : * |',
+          name: 'Dirty  scene? ...not the kind if "dirty" you\'re thinking about, Chloé! :+) / ? < >  : * |',
         },
         scenePath: "./plugins/fileorganizer/test/fixtures/temp/original.txt",
         args: {
@@ -233,8 +242,7 @@ describe("fileorganizer", () => {
       const result = await runPlugin({
         event: "sceneCustom",
         scene: {
-          name:
-            "Yëëp, what <b>a   strânge</b> filename! These look like illegal chars, but are allowed ∶",
+          name: "Yëëp, what <b>a   strânge</b> filename! These look like illegal chars, but are allowed ∶",
         },
         scenePath: "./plugins/fileorganizer/test/fixtures/temp/original.txt",
         args: {

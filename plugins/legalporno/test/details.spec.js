@@ -23,10 +23,10 @@ describe("Legalporno", () => {
     expect(result.actors).to.deep.equal(["Ornella Morgan"]);
     expect(result.labels).to.deep.equal([
       "3+ on 1",
-      "Czech",
       "anal",
       "big butt",
       "cum swallowing",
+      "czech",
       "double anal (DAP)",
       "facial cumshot",
       "first time",
@@ -59,7 +59,7 @@ describe("Legalporno", () => {
     ]);
     expect(result.labels).to.deep.equal([
       "3+ on 1",
-      "American",
+      "american",
       "anal",
       "average anal gape",
       "blowjob",

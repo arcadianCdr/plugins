@@ -7,7 +7,7 @@ import YAML from "yaml";
 import { setIn } from "./util";
 import { IPluginInfo, PluginArg } from "../types/plugin";
 
-const BRANCHES = ["master", "0.27"];
+const BRANCHES = ["master"];
 
 const pluginTemplate = fs.readFileSync("plugin_template.md", "utf-8");
 
@@ -100,7 +100,10 @@ const generatePluginDocs = () => {
       downloadTable: table([
         ["Server version", "Plugin documentation"],
         ...BRANCHES.map((branch) => [
-          `[Download link for: ${branch === "master" ? "stable" : branch}](${downloadUrl(branch, pluginDirName)})`,
+          `[Download link for: ${branch === "master" ? "stable" : branch}](${downloadUrl(
+            branch,
+            pluginDirName
+          )})`,
           `[documentation](${docsUrl(branch, pluginDirName)})`,
         ]),
       ]),
@@ -128,7 +131,7 @@ const generatePluginDocs = () => {
 
   const indexTemplate = fs.readFileSync("template.md", "utf-8");
   const tableHeaders = ["Plugin", "Version", "Description", "Download"];
-  
+
   const rendered = Handlebars.compile(indexTemplate)({
     table: table([
       tableHeaders,

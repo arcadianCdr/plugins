@@ -10,7 +10,6 @@ Make sure you are reading the documentation of the plugin, for the correct porn-
 | Server version                                                                                                 | Plugin documentation                                                                                          |
 | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | [Download link for: stable](https://raw.githubusercontent.com/porn-vault/plugins/master/dist/PromisedScene.js) | [documentation](https://github.com/porn-vault/porn-vault-plugins/blob/master/plugins/PromisedScene/README.md) |
-| [Download link for: 0.27](https://raw.githubusercontent.com/porn-vault/plugins/0.27/dist/PromisedScene.js)     | [documentation](https://github.com/porn-vault/porn-vault-plugins/blob/0.27/plugins/PromisedScene/README.md)   |
 
 
 ### Documentation

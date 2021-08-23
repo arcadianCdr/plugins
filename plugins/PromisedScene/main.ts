@@ -644,7 +644,7 @@ const handler: Plugin<MyContext, SceneOutput> = async (ctx) => {
     }
 
     const questionAsync = createQuestionPrompter($inquirer, testMode?.status, $logger);
-    answersList.push((new $inquirer.Separator() as any) as string);
+    answersList.push(new $inquirer.Separator() as any as string);
     answersList.push("== None of the above == ");
 
     const { searchedTitles: multipleSitesAnswer } = await questionAsync<{

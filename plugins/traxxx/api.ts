@@ -56,9 +56,7 @@ export class Api {
    *
    * @param idOrSlug - the id or slug of the channel/network
    */
-  public async getAllEntities(
-    idOrSlug: string | number
-  ): Promise<{
+  public async getAllEntities(idOrSlug: string | number): Promise<{
     channel: EntityResult.Entity | undefined;
     network: EntityResult.Entity | undefined;
   }> {

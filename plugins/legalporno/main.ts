@@ -109,9 +109,8 @@ const handler: Plugin<MyContext, any> = async (ctx) => {
           .utc($('span[title="Release date"] a').text(), "YYYY-MM-DD")
           .valueOf();
 
-        const [actorsElement, tagsElement, descriptionElement] = $(
-          ".scene-description__row"
-        ).toArray();
+        const [actorsElement, tagsElement, descriptionElement] =
+          $(".scene-description__row").toArray();
 
         result.description =
           $('meta[name="description"]')?.attr("content")?.trim() ||
